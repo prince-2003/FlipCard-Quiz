@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import dotenv from 'dotenv';
-dotenv.config();
-api=process.env.API_URL;
 
 function AdminDashboard() {
   const [flashcards, setFlashcards] = useState([]);
@@ -13,7 +10,7 @@ function AdminDashboard() {
   useEffect(() => {
     const fetchFlashcards = async () => {
       try {
-        const response = await axios.get(`${api}/flashcards`);
+        const response = await axios.get(`https://flipcard-quiz.onrender.com/flashcards`);
         setFlashcards(response.data);
         setLoading(false);
       } catch (error) {
@@ -38,13 +35,13 @@ function AdminDashboard() {
     e.preventDefault();
     try {
       if (editingFlashcard) {
-        await axios.put(`${api}/flashcards/${editingFlashcard.id}`, form);
+        await axios.put(`https://flipcard-quiz.onrender.com/flashcards/${editingFlashcard.id}`, form);
       } else {
-        await axios.post(`${api}/addflashcards`, form);
+        await axios.post(`https://flipcard-quiz.onrender.com/addflashcards`, form);
       }
       setForm({ question: '', correct_answer: '', incorrect_answers: [] });
       setEditingFlashcard(null);
-      const response = await axios.get(`${api}/flashcards`);
+      const response = await axios.get(`https://flipcard-quiz.onrender.com/flashcards`);
       setFlashcards(response.data);
     } catch (error) {
       console.error('Error saving flashcard:', error);
@@ -63,7 +60,7 @@ function AdminDashboard() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`${api}/flashcards/${id}`);
+      await axios.delete(`https://flipcard-quiz.onrender.com/flashcards/${id}`);
       setFlashcards(flashcards.filter(flashcard => flashcard.id !== id));
     } catch (error) {
       console.error('Error deleting flashcard:', error);
