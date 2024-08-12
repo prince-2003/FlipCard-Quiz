@@ -4,6 +4,9 @@ import axios from 'axios';
 import { BrowserRouter as Router, Route, Routes, Link} from 'react-router-dom';
 import Flashcard from './Flashcard.jsx';
 import AdminDashboard from './Admindashboard.jsx'; // Import the AdminDashboard component
+import dotenv from 'dotenv';
+dotenv.config();
+api=process.env.API_URL;
 
 function App() {
   const [flashcards, setFlashcards] = useState([]);
@@ -13,7 +16,7 @@ function App() {
   useEffect(() => {
     const fetchFlashcards = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/flashcards');
+        const response = await axios.get(`${api}/flashcards`);
         const data = response.data;
 
         const formattedFlashcards = data.map((questionItem) => {

@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import dotenv from 'dotenv';
+dotenv.config();
+api=process.env.API_URL;
 
 function AdminDashboard() {
   const [flashcards, setFlashcards] = useState([]);
@@ -10,7 +13,7 @@ function AdminDashboard() {
   useEffect(() => {
     const fetchFlashcards = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/flashcards');
+        const response = await axios.get(`${api}/flashcards`);
         setFlashcards(response.data);
         setLoading(false);
       } catch (error) {
@@ -35,13 +38,13 @@ function AdminDashboard() {
     e.preventDefault();
     try {
       if (editingFlashcard) {
-        await axios.put(`http://localhost:3001/flashcards/${editingFlashcard.id}`, form);
+        await axios.put(`${api}/flashcards/${editingFlashcard.id}`, form);
       } else {
-        await axios.post('http://localhost:3001/addflashcards', form);
+        await axios.post(`${api}/addflashcards`, form);
       }
       setForm({ question: '', correct_answer: '', incorrect_answers: [] });
       setEditingFlashcard(null);
-      const response = await axios.get('http://localhost:3001/flashcards');
+      const response = await axios.get(`${api}/flashcards`);
       setFlashcards(response.data);
     } catch (error) {
       console.error('Error saving flashcard:', error);
@@ -60,7 +63,7 @@ function AdminDashboard() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:3001/flashcards/${id}`);
+      await axios.delete(`${api}/flashcards/${id}`);
       setFlashcards(flashcards.filter(flashcard => flashcard.id !== id));
     } catch (error) {
       console.error('Error deleting flashcard:', error);
