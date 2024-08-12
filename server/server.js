@@ -10,10 +10,10 @@ const port = 3001;
 
 app.use(express.json());
 app.use(cors({
-  origin: 'http://localhost:3000', // Allow the react app to access the server
+  origin: ['http://localhost:3000','https://flip-card-quiz.vercel.app/'],
   methods: ['GET', 'POST', 'PUT', 'DELETE'], // Specify allowed methods
   allowedHeaders: ['Content-Type'], // Specify allowed headers
-  credentials: true // If you need to send cookies or other credentials
+  credentials: true 
 }));
 
 const pool = new db.Pool({
@@ -23,6 +23,8 @@ const pool = new db.Pool({
   password: process.env.DB_PASSWORD,
   port: process.env.DB_PORT,
 });
+
+
 
 app.get('/flashcards', async (req, res) => {
   try {
