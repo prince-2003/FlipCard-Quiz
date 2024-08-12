@@ -207,8 +207,6 @@ label {
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .admin-button {
-    margin: 0.5rem 0 0 0; /* Remove left margin on smaller screens */
-    width: 100%;
     text-align: center;
   }
 }
@@ -224,7 +222,6 @@ label {
   }
 
   .flashcard-item {
-    flex-direction: column;
     align-items: flex-start;
     padding: 0.75rem;
   }
@@ -234,12 +231,10 @@ label {
   }
 
   .button {
-    width: 100%;
     padding: 0.5em;
   }
 
   .form-actions {
-    flex-direction: column;
     gap: 0.5rem;
   }
 
@@ -259,12 +254,10 @@ label {
 
 @media (max-width: 480px) {
   .form-actions {
-    flex-direction: column;
     gap: 0.5rem;
   }
 
   .button {
-    width: 100%;
     padding: 0.5em;
     font-size: 0.9rem;
   }
