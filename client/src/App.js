@@ -17,14 +17,14 @@ function App() {
         const data = response.data;
 
         const formattedFlashcards = data.map((questionItem) => {
-          const answer = decodeString(questionItem.correct_answer);
+          const answer = questionItem.correct_answer;
           const options = [
-            ...questionItem.incorrect_answers.map(a => decodeString(a)),
+            ...questionItem.incorrect_answers.map(a => a),
             answer
           ];
           return {
             id: questionItem.id,
-            question: decodeString(questionItem.question),
+            question: questionItem.question,
             answer: answer,
             options: options.sort(() => Math.random() - 0.5)
           };
@@ -41,11 +41,6 @@ function App() {
     fetchFlashcards();
   }, []);
 
-  function decodeString(str) {
-    const textArea = document.createElement('textarea');
-    textArea.innerHTML = str;
-    return textArea.value;
-  }
 
   function handleNext() {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % flashcards.length);
@@ -72,7 +67,8 @@ function App() {
             </div>
             <div className="container">
               {flashcards.length > 0 ? (
-                <Flashcard flashcard={flashcards[currentIndex]} />
+                <Flashcard flashcard={flashcards[currentIndex]}  />
+                
               ) : (
                 <div>No flashcards available</div>
               )}

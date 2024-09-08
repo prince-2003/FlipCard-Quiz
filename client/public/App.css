@@ -114,6 +114,8 @@ body {
 /* Card styling */
 .card {
   display: flex;
+  height: 200px;
+  width: 50%;
   justify-content: center;
   align-items: center;
   position: relative;
